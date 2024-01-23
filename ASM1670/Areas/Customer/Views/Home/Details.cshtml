@@ -1,0 +1,47 @@
+@model ASM1670.Models.Cart
+
+<form method="post">
+    <input hidden asp-for="BookId"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <div class="container" style="">
+        <div class="row">
+            <div class="col-md-5">
+                <br />
+                <div class="project-info-box mt-0">
+                    <h2>@Model.Book.Title</h2>
+                    <p class="mb-0">@Model.Book.Description</p>
+                    <br />
+                </div>
+
+                <div class="project-info-box">
+                    <p><b>Author:   </b>@Model.Book.Author</p>
+                    <p><b>Category: </b> @Model.Book.Category.Name</p>
+                    <p><b>Price:</b> @Model.Book.Price $</p>
+                </div><!-- / project-info-box -->
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div>
+                    <a class="btn btn-primary me-md-2 position-relative bottom-0 end-0" asp-action="Index">Back to List</a>
+                    <button class="btn btn-secondary" type="submit" value="Add to Cart">Add to Cart </button>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div style="background-color: transparent;">
+                    <br />
+                    <br />
+                </div>
+                <img style="width:50%" src="@Model.Book.ImageUrl" alt="@Model.Book.Title" class="rounded">
+                <div class="project-info-box">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,60 @@
+@model IEnumerable<ASM1670.Models.Category>
+
+@if(TempData["SuccessMessage1"] != null && (bool)TempData["ShowMessage"]){
+    <div id="successMessage1" class="alert alert-success">@TempData["SuccessMessage1"]</div>
+    <script>
+        setTimeout(function() {
+            $("#successMessage1").fadeOut("slow");
+        }, 5000);
+    </script>
+}else if (TempData["RejectMessage"] != null && (bool)TempData["ShowMessage"])
+{
+    <div id="rejectMessage" class="alert alert-danger">@TempData["RejectMessage"]</div>
+    <script>
+        setTimeout(function() {
+            $("#rejectMessage").fadeOut("slow");
+        }, 3000);
+    </script>
+}
+<div class="book-container">
+    <div class="book-detail-header">
+        <h1>Requests</h1>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="request-accept">
+                    <a asp-area="Admin" asp-controller="Users" asp-action="ApproveRequest" asp-route-id="@item.Id" style="color: #00800d">Approve</a> |
+                    <a asp-area="Admin" asp-controller="Users" asp-action="RejectRequest" asp-route-id="@item.Id" style="color: #800000">Reject</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+    
+    

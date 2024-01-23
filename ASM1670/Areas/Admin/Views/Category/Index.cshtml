@@ -1,0 +1,68 @@
+@model IEnumerable<ASM1670.Models.Category>
+
+
+@if(TempData["SuccessMessage"] != null && (bool)TempData["ShowMessage"]){
+    <div id="successMessage" class="alert alert-success">@TempData["SuccessMessage"]</div>
+    <script>
+        setTimeout(function() {
+            $("#successMessage").fadeOut("slow");
+        }, 5000);
+    </script>
+}else if(TempData["DeleteCateMessage"] != null && (bool)TempData["ShowMessage"]){
+    <div id="deleteCateMessage" class="alert alert-danger">@TempData["DeleteCateMessage"]</div>
+    <script>
+        setTimeout(function() {
+            $("#deleteCateMessage").fadeOut("slow");
+        }, 5000);
+    </script>
+}else if (TempData["EditCateMessage"] != null && (bool)TempData["ShowMessage"])
+{
+    <div id="editCateMessage" class="alert alert-warning">@TempData["EditCateMessage"]</div>
+    <script>
+        setTimeout(function() {
+            $("#editCateMessage").fadeOut("slow");
+        }, 5000);
+    </script>
+}
+
+<div class="border-3">
+    <div class="">
+        <h1>Categories</h1>
+    </div>
+    <br />
+    <div class="btn-detail">
+        <a class="btn btn-secondary" asp-action="Create">Create New</a>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="justify-content-center">
+            <th >
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="btn-category-edit" class="">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

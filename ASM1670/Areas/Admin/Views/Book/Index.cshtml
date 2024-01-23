@@ -1,0 +1,85 @@
+@model IEnumerable<Book>
+
+@if(TempData["DeleteBoMessage"] != null && (bool)TempData["ShowMessage"]){
+    <div id="deleteBoMessage" class="alert alert-danger">@TempData["DeleteBoMessage"]</div>
+    <script>
+        setTimeout(function() {
+            $("#deleteBoMessage").fadeOut("slow");
+        }, 5000);
+    </script>
+}else if (TempData["CreateBoMessage"] != null && (bool)TempData["ShowMessage"])
+{
+    <div id="createBoMessage" class="alert alert-success">@TempData["CreateBoMessage"]</div>
+    <script>
+        setTimeout(function() {
+            $("#createBoMessage").fadeOut("slow");
+        }, 3000);
+    </script>
+}
+<div class="book-container">
+    <div class="book-container-header">
+        <ion-icon name="book-outline"></ion-icon><h1>Book</h1>
+    </div>
+    <div class="book-container-search">
+        <form>
+            <label for="myInput"><ion-icon name="search-circle-outline"></ion-icon></label>
+            <input id="myInput" type="text" placeholder="Search" >
+        </form>
+        <br />
+        <a class="btn btn-primary" asp-controller="Book" asp-action="CreateUpdate">Create</a>
+    </div>
+    <div class="book-container-table">
+        <table class="table">
+            <thead>
+            <tr style="text-align:center">
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Category</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody id="tblData">
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <th scope="row">@obj.Id</th>
+                    <td>@obj.Title</td>
+                    <td>@obj.Description</td>
+                    <td>@obj.Price</td>
+                    <td>@obj.Category.Name</td>
+                    <td class="btn-book">
+                        <a asp-controller="Book"
+                               asp-action="CreateUpdate" asp-route-id="@obj.Id" class="btn btn-primary">
+                            Update
+                        </a>
+                        <br />
+                        <a asp-controller="Book" asp-action="Delete"
+                        onclick="return confirm('Are you sure to delete this Book')"
+                               asp-route-id="@obj.Id" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                
+                $("#tblData tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}
